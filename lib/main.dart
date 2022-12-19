@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:podcast/pages/home.dart';
-import 'package:podcast/widgets/appText.dart';
+import 'package:podcast/pages/homescreen.dart';
+import 'package:podcast/pages/search.dart';
+import 'package:podcast/widgets/app_text.dart';
 import 'package:get/get.dart';
 
 void main() {
@@ -12,9 +14,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
+    return GetMaterialApp(
+      initialRoute: '/',
+      defaultTransition: Transition.rightToLeftWithFade,
+      transitionDuration: const Duration(milliseconds: 500),
+      getPages: [
+        GetPage(
+          name: '/home',
+          page: (() => const HomePage()),
+        ),
+        GetPage(
+          name: '/search',
+          page: () => const SearchPage(),
+        )
+      ],
       debugShowCheckedModeBanner: false,
-      home: MainApp(),
+      home: const MainApp(),
     );
   }
 }
@@ -59,7 +74,8 @@ class _MainAppState extends State<MainApp> {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  Get.to(const HomePage());
+                  Get.to(const HomeScreen());
+                  // Get.toNamed(const HomePage())
                 },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 27, 91, 59)),
